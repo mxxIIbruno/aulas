@@ -1,0 +1,23 @@
+Comando apresentado no Windows
+
+python -m venv ambiente     -> Você cria um ambiente virtual definido como ambiente
+gcm python                  -> Mostra o aplicativo que esta usando no Powershell e o caminho
+gcm python.exe -Syntax      -> Mostra o caminho que se encontra o aplicativo
+
+caminho: C:\Users\Mac II\AppData\Local\Programs\Python\Python311\python.exe
+
+.\venv\Scripts\activate     -> Ativa o ambiente virtual
+deactivate                  -> Desativa o ambiente virtual
+
+pip install pymysql         -> Instala uma biblioteca que não tem no python a biblioteca de exemplo é "pymysql"
+pip upgrade pymysql         -> Atualiza a biblioteca 
+pip uninstall pymysql -y    -> desistanla a biblioteca desejada, o "-y" é opcional porem confirma a desinstalação
+pip freeze                  -> Lista os pacotes ou bibliotecas instaladas
+
+pip freeze > requirements.txt       -> Comando para pegar todos as bibliotecas ou pacotes e crirar um arquivo .txt jogar todos as modulos no arquivo .txt
+pip index versions pymysql          -> Mostra todas as versões disponiveis para o python
+pip install pymysql==1.0.1          -> Instala a verção que você quer 
+pip install -r .\requirements.txt   -> Instala todas as versões que tem no arquivo
+
+Quando você cria um ambiente virtual você instala verções dependendo dos projetos que você cria especificos, quando sair uma verção mais nova pode não funcionar como o preojeto 
+para as versões que seu preojeto precisa gerando um erro
