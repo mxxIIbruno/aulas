@@ -9,6 +9,21 @@
     False         false
     None          null
 """
+import json
+# from pprint import pprint
+from typing import TypedDict
+
+
+class Movie(TypedDict):
+    title: str
+    original_title: str
+    is_movie: bool
+    imdb_rating: float
+    year: int
+    characters: list[str]
+    budget: None | float
+
+
 string_json = '''
 {
   "title": "O Senhor dos Anéis: A Sociedade do Anel",
@@ -21,3 +36,10 @@ string_json = '''
 }
 '''
 
+filme: Movie = json.loads(string_json)
+# pprint(filme, width=40)
+# pprint(filme['title'])
+# pprint(filme['characters'][0])
+# pprint(filme['year'] + 10)
+print(json.dumps(filme, ensure_ascii=False, indent=2))
+print(string_json)
