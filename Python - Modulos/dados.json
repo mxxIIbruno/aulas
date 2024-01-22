@@ -1,7 +1,7 @@
 {
-  "nome": "João",
+  "nome": "JoÃ£o",
   "idade": 30,
-  "endereço": {
+  "endereco": {
     "rua": "A",
     "cidade": "Exemploville"
   }
