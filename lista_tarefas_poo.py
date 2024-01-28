@@ -4,6 +4,7 @@
     Minha lista vai ter os comandos:
     adicionar, listar, apagar, sair, marcar, limpar
 """
+import json
 import os
 
 
@@ -13,129 +14,116 @@ class MyTask:
 
         Ela vai ser em POO (Programação Orientada a Objeto)
     """
-    __T, __S, __D = 'titulo', 'status', 'descrition'
-    # variaveis da classe
-    __data = [
-        {__T: {
-            __S: False,
-            __D: 'texto'
-        }}
-    ]
-    __condition = True
+    TITLE, STATUS, DESCRITION = 'titulo', 'status', 'descrition'
+    with open('preset.json', 'r', encoding='UTF-8') as file:
+        COMANDOS = json.load(file)
 
     def __init__(self) -> None:
-        self.__loop()
+        self.data = list()
+        self.condition = True
+        self.loop()
 
-    def __loop(self):
+    def loop(self):
         """
             Função loop
 
             vai daixar o programa rodando até
             quando o cliente quiser sair do programa
         """
-        while self.__condition:
-            self.__show_commands()
-            command = input('Digite o comando desejado: ')
-            self.__select_command(command)
+        while self.condition:
+            self.show_commands()
+            command = input('\nDigite o comando desejado: ').strip()
+            self.select_command(command)
 
-    def __exit_command(self):
-        self.__condition = False
+    def exit_command(self):
+        self.condition = False
 
-    def __add_task(self):
-        var_title = input('\nDigite o título da tarefa: ')
-        var_descrition = input('Digite a descrição do mesmo: ')
+    def add_command(self):
+        title = input('\nDigite o título da tarefa: ').strip()
+        descrition = input('Digite a descrição do mesmo: ').strip()
 
-        self.__data.append(
-            {var_title: {
-                'status': False,
-                'descrition': var_descrition
+        self.data.append(
+            {title: {
+                self.STATUS: False,
+                self.DESCRITION: descrition
             }}
         )
 
         print('\nTarefa adcionada com sucesso!')
 
-    def __list_command(self):
+    def list_command(self):
         os.system('cls')
         print(
             '########################################################\n' +
             '                        TAREFAS\n'
         )
 
-        if not self.__data:
+        if not self.data:
             print(
                 '                   Lista está vazia!'
             )
             return
 
-        for item in self.__data:
-            item: dict
-
-            for datas_k, datas_v in item.items():
-                var_status = 'X' if datas_v[self.__S] else ' '
-                var_descrition = datas_v[self.__D]
-
+        for item in self.data:
+            for task_title, task_datas in item.items():
+                status = 'X' if task_datas[self.STATUS] else ' '
                 print(
-                    f'[{var_status}] | Titulo: {datas_k}'
-                    f'\n\tDescrição: {var_descrition}'
+                    f'[{status}] | Titulo: {task_title}'
+                    f'\n\tDescrição: {task_datas[self.DESCRITION]}'
                 )
 
-    def __remove_command(self):
-        self.__list_command()
+    def remove_command(self):
+        self.list_command()
         select_task = input('\nDigite o nome da tarefa: ').strip()
 
-        for item in self.__data:
+        for item in self.data:
             if select_task in item:
-                self.__data.remove(item)
+                self.data.remove(item)
                 print('Tarefa removido com sucesso!')
                 return
 
         print(f'Ops! Não achamos a taréfa "{select_task}"!')
 
-    def __mark_command(self):
-        self.__list_command()
-        check_off = input('\nDigite a taréfa que deseja marcar: ').strip()
+    def mark_command(self):
+        self.list_command()
+        check_off = input('Digite a taréfa que deseja marcar: ').strip()
 
-        for item in self.__data:
+        for item in self.data:
             if check_off in item:
-                self.__mark(item, check_off)
+                self.mark(item, check_off)
                 print('Ação realizada com sucesso!')
                 return
 
         print('Ops! Titulo não encontrado!')
 
-    def __mark(self, item, check_off):
-        status_atual = self.__data[self.__data.index(
-            item)][check_off][self.__S]
-        self.__data[self.__data.index(
-            item)][check_off][self.__S] = not status_atual
+    def mark(self, item, check_off):
+        status_atual = self.data[self.data.index(
+            item)][check_off][self.STATUS]
+        self.data[self.data.index(
+            item)][check_off][self.STATUS] = not status_atual
 
-    def __select_command(self, value_command: str):
+    def select_command(self, value_command: str):
         """
             Assim que o cliente selecionar o comando
             o comando selecionado vai passar pela estrutura condicional
         """
-        if value_command == 'sair':
-            print('\nAté a proxima!\n')
-            self.__exit_command()
-        elif value_command == 'limpar':
-            os.system('cls')
-        elif value_command == 'adicionar':
-            self.__add_task()
-        elif value_command == 'listar':
-            self.__list_command()
-        elif value_command == 'apagar':
-            self.__remove_command()
-        elif value_command == 'marcar':
-            self.__mark_command()
+        if value_command in self.COMANDOS:
+            print(
+                f'\nExecutando: {self.COMANDOS[value_command]}'
+            )
+            getattr(self, f'{value_command}_command')()
         else:
             print(
                 f'\nErro: comando "{value_command}" não existe!'
             )
 
-    def __show_commands(self):
+    def clear_command(self):
+        os.system('cls')
+
+    def show_commands(self):
         print(
             '\n########################################################\n' +
-            'Comando: sair, limpar, adicionar, listar, apagar, marcar\n'
+            'Comando:', ', '.join(self.COMANDOS)
         )
 
 
