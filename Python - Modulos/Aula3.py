@@ -9,7 +9,7 @@ from datetime import datetime
 # from pytz import timezone
 
 data = datetime.now()
-print(data.timestamp()) # Isso está n base de dados
+print(data.timestamp())  # Isso está n base de dados
 print(datetime.fromtimestamp(1705160065.754809))
 
 # ['America/Sao_Paulo', 'Asia/Tokyo']
