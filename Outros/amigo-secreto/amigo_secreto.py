@@ -12,10 +12,10 @@ bd_pessoas: list
 
 # selecionar os amigos
 print('\n\tLista do Amigo secreto oficial:')
-for pessoa in range(len(bd_pessoas)):
-    if pessoa % 2:
-        print(f' x {bd_pessoas[pessoa]}')
+for indice, pessoa in enumerate(bd_pessoas):
+    if indice % 2:
+        print(f' x {pessoa}')
         continue
     print(
-        f'{bd_pessoas[pessoa]:>25}', end=''
+        f'{pessoa:>25}', end=''
     )
