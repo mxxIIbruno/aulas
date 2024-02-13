@@ -10,8 +10,7 @@ Ative seu ambiente virtual
 pip install pypdf2
 """
 from pathlib import Path
-from PyPDF2 import PdfReader
-from PyPDF2 import PdfWriter
+from PyPDF2 import PdfReader, PdfWriter, PdfMerger
 
 PASTA_RAIZ = Path(__file__).parent
 PASTA_ORIGINALS = PASTA_RAIZ / 'pdfs_originais'
@@ -48,3 +47,15 @@ for i, page in enumerate(reader.pages):
     with open(PASTA_NOVA / f'page{i}.pdf', 'wb') as arquivo:
         write.add_page(page)
         write.write(arquivo)
+
+
+files = [
+    PASTA_NOVA / f'page{i}.pdf' for i in range(2)
+]
+
+merger = PdfMerger()
+for file in files:
+    merger.append(file)
+
+merger.write(PASTA_NOVA / 'MERGED.pdf')
+merger.close()
