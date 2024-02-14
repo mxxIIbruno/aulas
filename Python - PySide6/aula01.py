@@ -25,3 +25,10 @@ Por que mudei de PyQt para PySide na atualização?
   antes de usar qualquer software de terceiros.
   https://tldrlegal.com/license/gnu-lesser-general-public-license-v3-(lgpl-3)
 """
+import PySide6.QtCore
+
+# Prints PytSide version
+print(PySide6.__version__)
+
+# Prints the Qt version used to compile PySide6
+print(PySide6.QtCore.__version__)  # type:ignore
