@@ -9,15 +9,15 @@ from variables import (PRIMARY_COLOR, PRIMARY_COLOR_DARKEST,
                        PRIMERY_COLOR_DARKER)
 
 qss = f"""
-    PushButton[cssClass="specialButton"] {{
+    QPushButton[cssClass="specialButton"] {{
         color: #fff;
         background: {PRIMARY_COLOR};
     }}
-    PushButton[cssClass="specialButton"]:hover {{
+    QPushButton[cssClass="specialButton"]:hover {{
         color: #fff;
         background: {PRIMERY_COLOR_DARKER};
     }}
-    PushButto[cssClass="specialButton"]:pressed {{
+    QPushButton[cssClass="specialButton"]:pressed {{
         color: #fff;
         background: {PRIMARY_COLOR_DARKEST};
     }}
