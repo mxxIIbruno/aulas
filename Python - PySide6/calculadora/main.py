@@ -3,12 +3,15 @@ import sys
 from display import Display
 from main_window import MainWindow
 from info import Info
+from style import setupTheme
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication
 from variables import WINDOW_ICON_PATH
 
 if __name__ == '__main__':
+    # Cria a aplicação
     app = QApplication(sys.argv)
+    setupTheme()
     window = MainWindow()
 
     # Define o icone
