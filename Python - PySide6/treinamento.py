@@ -20,7 +20,7 @@ class MyClass:
         birth = datetime(year, month, day)
         self.age = relativedelta(date, birth).years
 
-    def consultar_cep(self, cep):
+    def check_zip_code(self, cep):
         url = f'https://viacep.com.br/ws/{cep}/json'
 
         try:
@@ -35,7 +35,7 @@ class MyClass:
             print(f'Erro na requisição: {erro_req}')
 
     def info(self, value):
-        data_cep = self.consultar_cep(value)
+        data_cep = self.check_zip_code(value)
 
         if data_cep:
             print(f'Informações do CEP {value}:\n{data_cep}')
@@ -53,5 +53,5 @@ if __name__ == '__main__':
         1,  # Month
         9999  # Year
     )
-    my_object.consultar_cep(CEP)
+    my_object.check_zip_code(CEP)
     my_object.info(CEP)
