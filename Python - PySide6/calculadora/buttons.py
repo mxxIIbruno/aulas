@@ -1,10 +1,10 @@
+import math
 from typing import TYPE_CHECKING
 
 from PySide6.QtCore import Slot
-from PySide6.QtWidgets import QPushButton, QGridLayout
-from utils import isNumOrDot, isEmpty, isValidNumber
+from PySide6.QtWidgets import QGridLayout, QPushButton
+from utils import isEmpty, isNumOrDot, isValidNumber
 from variables import FONT_SIZE_MEDIUN
-import math
 
 if TYPE_CHECKING:
     from display import Display
@@ -60,7 +60,10 @@ class ButtonsGrid(QGridLayout):
         self.info.setText(value)
 
     def _makeGrid(self):
-        self.display.eqRequested.connect(lambda: print(123))
+        self.display.eqPressed.connect(lambda: print(123))
+        self.display.delPressed.connect(self.display.backspace)
+        self.display.clearPressed.connect(lambda: print(123))
+
         for i, row in enumerate(self._gridMask):
             for j, button_text in enumerate(row):
                 button = Button(button_text)
