@@ -78,6 +78,9 @@ class ButtonsGrid(QGridLayout):
         if text == 'C':
             self._connectButtonClicked(button, self._clear)
 
+        if text in '◄':
+            self._connectButtonClicked(button, self.display.backspace)
+
         if text in '-+/*^':
             self._connectButtonClicked(
                 button, self._makeSlot(self._operatorClicked, button)
