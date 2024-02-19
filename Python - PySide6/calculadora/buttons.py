@@ -134,6 +134,7 @@ class ButtonsGrid(QGridLayout):
         displayText = self.display.text()
 
         if not isValidNumber(displayText):
+            self._showError('Conta incompleta.')
             return
 
         self._right = float(displayText)
@@ -146,9 +147,9 @@ class ButtonsGrid(QGridLayout):
             else:
                 result = eval(self.equation)
         except ZeroDivisionError:
-            ...
+            self._showError('Divisão por zero.')
         except OverflowError:
-            ...
+            self._showError('Essa conta não pode ser realizada.')
 
         self.display.clear()
         self.info.setText(f'{self.equation} = {result}')
@@ -159,7 +160,35 @@ class ButtonsGrid(QGridLayout):
             self._left = None
 
     def _showError(self, text):
-        msgBox = self.window.makeMsgBox()
-        msgBox.setText(text)
+        """
+            Outros métodos:
+
+        msgBox.setInformativeText('Texto ')
+        msgBox.button(msgBox.StandardButton.Cancel).setText("Cancelar")
+
+        msgBox.setStandardButtons(
+            msgBox.StandardButton.Cancel |
+            msgBox.StandardButton.Ok |
+            msgBox.StandardButton.Save
+        )
+        result = msgBox.exec()
+        if result == msgBox.StandardButton.Save:
+            ...  # Código sobre o botão clicado
+        elif result == msgBox.StandardButton.Ok:
+            ...  # Código sobre o botão clicado
+        elif result == msgBox.StandardButton.Cancel:
+            ...  # Código sobre o botão clicado
+        """
+        msgBox = self._makeDialog(text)
         msgBox.setIcon(msgBox.Icon.Critical)
         msgBox.exec()
+
+    def _showInfo(self, text):
+        msgBox = self._makeDialog(text)
+        msgBox.setIcon(msgBox.Icon.Information)
+        msgBox.exec()
+
+    def _makeDialog(self, text):
+        msgBox = self.window.makeMsgBox()
+        msgBox.setText(text)
+        return msgBox
