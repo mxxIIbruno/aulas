@@ -27,9 +27,9 @@ class Display(QLineEdit):
         key = arg__1.key()
         KEYS = Qt.Key
 
-        isEnter = key in [KEYS.Key_Enter, KEYS.Key_Return]
-        isDelete = key in [KEYS.Key_Backspace, KEYS.Key_Delete]
-        isEsc = key in [KEYS.Key_Escape, KEYS.Key_Return]
+        isEnter = key in [KEYS.Key_Enter, KEYS.Key_Return, KEYS.Key_Equal]
+        isDelete = key in [KEYS.Key_Backspace, KEYS.Key_Delete, KEYS.Key_D]
+        isEsc = key in [KEYS.Key_Escape, KEYS.Key_Return, KEYS.Key_C]
 
         if isEnter:
             self.eqPressed.emit()
@@ -39,7 +39,7 @@ class Display(QLineEdit):
             self.delPressed.emit()
             return arg__1.ignore()
 
-        if isEsc:
+        if isEsc or text == '◄':
             self.clearPressed.emit()
             return arg__1.ignore()
 
