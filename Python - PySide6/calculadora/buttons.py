@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 
 from PySide6.QtCore import Slot
 from PySide6.QtWidgets import QGridLayout, QPushButton
-from utils import isEmpty, isNumOrDot, isValidNumber
+from utils import isEmpty, isNumOrDot, isValidNumber, convertNumber
 from variables import FONT_SIZE_MEDIUN
 
 if TYPE_CHECKING:
@@ -36,7 +36,7 @@ class ButtonsGrid(QGridLayout):
             ['7', '8', '9', '*'],
             ['4', '5', '6', '-'],
             ['1', '2', '3', '+'],
-            ['', '0', '.', '='],
+            ['N', '0', '.', '='],
         ]
         self.display = display
         self.info = info
@@ -90,6 +90,9 @@ class ButtonsGrid(QGridLayout):
         if text == '◄':
             self._connectButtonClicked(button, self.display.backspace)
 
+        if text == 'N':
+            self._connectButtonClicked(button, self._invertNumber)
+
         if text in '-+/*^':
             self._connectButtonClicked(
                 button, self._makeSlot(self._configLeftOp, button)
@@ -104,6 +107,16 @@ class ButtonsGrid(QGridLayout):
         def realSlot(_):
             func(*args, **kwargs)
         return realSlot
+
+    @Slot()
+    def _invertNumber(self):
+        displayText = self.display.text()
+
+        if not isValidNumber(displayText):
+            return
+
+        newNumber = convertNumber(displayText) * -1
+        self.display.setText(str(newNumber))
 
     @Slot()
     def _insertToDisplay(self, text):
@@ -133,7 +146,7 @@ class ButtonsGrid(QGridLayout):
         # Se houver algo no número da esquerda, não fazemos nada. Aguardaremos
         # o número dadireita.
         if self._left is None:
-            self._left = float(displayText)
+            self._left = convertNumber(displayText)
 
         self._op = text
         self.equation = f'{self._left} {self._op} ??'
@@ -146,7 +159,7 @@ class ButtonsGrid(QGridLayout):
             self._showError('Conta incompleta.')
             return
 
-        self._right = float(displayText)
+        self._right = convertNumber(displayText)
         self.equation = f'{self._left} {self._op} {self._right}'
         result = 'error'
 
