@@ -63,6 +63,7 @@ class ButtonsGrid(QGridLayout):
         self.display.eqPressed.connect(lambda: print(123))
         self.display.delPressed.connect(self.display.backspace)
         self.display.clearPressed.connect(lambda: print(123))
+        self.display.inputPressed.connect(lambda: print(123))
 
         for i, row in enumerate(self._gridMask):
             for j, button_text in enumerate(row):
