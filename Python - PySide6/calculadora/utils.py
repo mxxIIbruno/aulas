@@ -11,7 +11,7 @@ def convertNumber(string: str):
     number = float(string)
 
     if number.is_integer():
-        number = int(string)
+        number = int(number)
 
     return number
 
