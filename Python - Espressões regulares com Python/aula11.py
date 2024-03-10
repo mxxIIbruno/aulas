@@ -1,6 +1,6 @@
 import re
 
-regexp = re.compile(r"^(\(\d{2}\)\s)(9\s)(\d{4}-\d{4})$", flags=re.M)
+regexp = re.compile(r"^(?:\(\d{2}\)\s)(?:9\s)(?:\d{4}-\d{4})$", flags=re.M)
 
 texto = '''
 (21) 9 8852-5214
@@ -13,5 +13,4 @@ texto = '''
 '''
 
 for telefone in regexp.findall(texto):
-    telefone_completo, ddd, nove, numero = telefone
-    print(telefone_completo)
+    print(telefone)
