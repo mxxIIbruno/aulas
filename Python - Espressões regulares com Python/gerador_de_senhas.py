@@ -28,7 +28,7 @@ def strange_chars():
 
 
 def create_pass(
-        legth=12,
+        length=12,
         upper=True,
         lower=True,
         numbers=True,
@@ -36,7 +36,7 @@ def create_pass(
 ):
     password = list()
 
-    for i in range(legth):
+    for i in range(length):
         if numbers:
             password.append(zero_and_nine())
         if lower:
@@ -46,16 +46,16 @@ def create_pass(
         if chars:
             password.append(strange_chars())
 
-        password = password[:legth]
-        shuffle(password)
-        return ''.join(password)
+    password = password[:length]
+    shuffle(password)
+    return ''.join(password)
 
 
 if __name__ == "__main__":
     print('VÁLIDAS')
     for i in range(5):
         print(create_pass(
-            legth=12,
+            length=12,
             upper=True,
             lower=True,
             numbers=True,
@@ -66,7 +66,7 @@ if __name__ == "__main__":
     print('SEM MINÚSCULAS')
     for i in range(5):
         print(create_pass(
-            legth=12,
+            length=12,
             upper=True,
             lower=False,
             numbers=True,
@@ -77,7 +77,7 @@ if __name__ == "__main__":
     print('SEM MINÚSCULAS E NÚMEROS')
     for i in range(5):
         print(create_pass(
-            legth=12,
+            length=12,
             upper=True,
             lower=False,
             numbers=False,
@@ -88,7 +88,7 @@ if __name__ == "__main__":
     print('SEM MINÚSCULAS, CARACTERES E NÚMEROS')
     for i in range(5):
         print(create_pass(
-            legth=12,
+            length=12,
             upper=True,
             lower=False,
             numbers=False,
@@ -99,6 +99,6 @@ if __name__ == "__main__":
     print('QUANTIDADE INVÁLIDA (6)')
     for i in range(5):
         print(create_pass(
-            legth=6,
+            length=6,
         ))
     print()
