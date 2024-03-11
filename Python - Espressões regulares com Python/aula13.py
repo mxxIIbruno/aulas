@@ -1,4 +1,6 @@
 """
+    https://regex101.com/r/NY9nqU/1
+
     Minha Solução antes da revisão:
     "^(?:[+-]{,1})[0-9]+(?:\.?)(?:[0-9]+)$"
 
