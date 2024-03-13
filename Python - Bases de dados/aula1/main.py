@@ -38,7 +38,14 @@ sql = (
     f'INSERT INTO {TABLE_NAME} (id, name, weight) VALUES'
     '(NULL, ?, ?)'
 )
-cursor.execute(sql, ['Joana', 8.6])
+# cursor.execute(sql, ['Joana', 8.6])
+cursor.executemany(
+    sql,
+    [
+        ['Joana', 8.6],
+        ['Bruno', 5.6]
+    ]
+)
 connection.commit()
 print(sql)
 
