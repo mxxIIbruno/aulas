@@ -36,16 +36,27 @@ connection.commit()
 # CUIDADO: sql injection
 sql = (
     f'INSERT INTO {TABLE_NAME} (id, name, weight) VALUES'
-    '(NULL, ?, ?)'
+    # '(NULL, ?, ?)'
+    '(:name, :peso)'
 )
 # cursor.execute(sql, ['Joana', 8.6])
+# cursor.executemany(
+#     sql,
+#     [
+#         ['Joana', 8.6],
+#         ['Bruno', 5.6]
+#     ]
+# )
+# cursor.execute(sql, {'nome': 'Joana', 'peso': 4})
 cursor.executemany(
     sql,
-    [
-        ['Joana', 8.6],
-        ['Bruno', 5.6]
-    ]
+    (
+        {'nome': 'Joana', 'peso': 4},
+        {'nome': 'Bruno', 'peso': 5},
+    )
 )
+
+
 connection.commit()
 print(sql)
 
