@@ -64,8 +64,26 @@ cursor.executemany(
 )
 connection.commit()
 
-cursor.close()
-connection.close()
-
 if __name__ == '__main__':
     print(sql)
+
+    cursor.execute(
+        f'DELETE FROM {TABLE_NAME} '
+        'WHERE id = "3"'
+    )
+    connection.commit()
+
+    cursor.execute(
+        f'DELETE FROM {TABLE_NAME} '
+        'WHERE id = "4"'
+    )
+    connection.commit()
+
+    cursor.execute(f'SELECT * FROM {TABLE_NAME}')
+
+    for row in cursor.fetchall():
+        _id, name, weight = row
+        print(_id, name, weight)
+
+    cursor.close()
+    connection.close()
