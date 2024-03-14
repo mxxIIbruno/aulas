@@ -1,29 +1,28 @@
-from pathlib import Path
-import json
-import sys
+import re
 
-ROOT_FILE = Path(__file__).parent
-FILE = ROOT_FILE / 'data.json'
 
-with open(FILE, 'r', encoding='utf8') as file:
-    try:
-        data = json.load(file)
-    except json.decoder.JSONDecodeError:
-        data = {}
+def get_number(value=''):
+    regexp = re.compile(r'\d+')
 
-sys.exit()
-with open(FILE, 'w', encoding='utf8') as file:
-    data = {
-        'bruno': {'password': '123456'}
-    }
-    json.dump(
-        data, file, ensure_ascii=False, indent=2
+    return ''.join(regexp.findall(value))
+
+
+def fmt_cpf(value: str):
+    # Refatorar linha de código | ERRO
+    fmt = re.findall(
+        r'\d{3}\.\d{3}\.\d{3}-\d{2}',
+        value
     )
 
-with open(FILE, 'w', encoding='utf8') as file:
-    data = {
-        'igor': {'password': '123456'}
-    }
-    json.dump(
-        data, file, ensure_ascii=False, indent=2
-    )
+    return fmt
+
+
+text = """
+Número: 12345678912
+Nome: Bruno
+"""
+
+number = get_number(text)
+cpf = fmt_cpf(number)
+
+print(cpf)
