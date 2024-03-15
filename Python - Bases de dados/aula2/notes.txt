@@ -1,0 +1,11 @@
+Os comando presentes dessa aula usando o terminal para trabalhar com docker.
+
+Vai no caminho absoluto onde se encotra o arquivo docker-compose.yml,
+os comandos são:
+    -> docker-compose up
+    -> docker ps = "Vai mostrar quais container estão rodados."
+    -> docker ps -a = "Vai mostrar os containers existentes, mesmo que não estão rodando."
+    -> docker-compose up -d = "Ele vai subir o container que não está ON."
+    -> docker container stop [CONTAINER ID] = "Ele vai travar o container selecinado."
+    -> docker container start [CONTAINER ID] = "Ele vai executar o container selecionado."
+    
