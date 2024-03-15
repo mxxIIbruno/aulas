@@ -1,1 +1,2 @@
 PyMySQL==1.1.0
+types-PyMySQL==1.1.0.1
