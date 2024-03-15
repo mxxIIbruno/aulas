@@ -8,4 +8,5 @@ os comandos são:
     -> docker-compose up -d = "Ele vai subir o container que não está ON."
     -> docker container stop [CONTAINER ID] = "Ele vai travar o container selecinado."
     -> docker container start [CONTAINER ID] = "Ele vai executar o container selecionado."
-    
+
+Se a pasta "mysql" estiver no caminho absoluto eu não vou ver alterações no docker
