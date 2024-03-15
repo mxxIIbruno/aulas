@@ -4,12 +4,17 @@
     Pypy: https://pypi.org/project/pymysql/
     GitHub: https://github.com/PyMySQL/PyMySQL
 """
-import pymysql
+import os
 
-connection = pymysql.connect(host='localhost',
-                             user='usuario',
-                             passwd='senha',
-                             database='base_de_dados')
+import pymysql
+import dotenv
+
+dotenv.load_dotenv()
+
+connection = pymysql.connect(host=os.environ['MYSQL_HOST'],
+                             user=os.environ['MYSQL_USER'],
+                             passwd=os.environ['MYSQL_PASSWORD'],
+                             database=os.environ['MYSQL_DATABASE'])
 with connection:
     cursor = connection.cursor()
 
