@@ -24,7 +24,7 @@ with connection:
                        "id INT NOT NULL AUTO_INCREMENT, "
                        "nome VARCHAR(50) NOT NULL, "
                        "idade INT NOT NULL, "
-                       "PRIMARYKEY (id)"
+                       "PRIMARY KEY (id)"
                        ")")
 
         print(cursor)
