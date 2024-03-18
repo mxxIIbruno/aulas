@@ -7,6 +7,7 @@
 import os
 
 import pymysql  # type: ignore
+import pymysql.cursors  # type: ignore
 import dotenv
 
 TABLE_NAME = "customers"
@@ -18,6 +19,7 @@ connection = pymysql.connect(
     user=os.environ["MYSQL_USER"],
     passwd=os.environ["MYSQL_PASSWORD"],
     database=os.environ["MYSQL_DATABASE"],
+    cursorclass=pymysql.cursors.DictCursor,
     # charset='utf8mb4' # se quiser aplicar o charset aqui também!
 )
 
@@ -132,9 +134,12 @@ with connection:
             'WHERE id=%s'
         )
         cursor.execute(sql, ('Brasil', 78, 4))
-        connection.commit()
-
         cursor.execute(f'SELECT * FROM {TABLE_NAME} ')
+
+        # for row in cursor.fetchall():
+        #     _id, name, age = row
+        #     print(_id, name, age)
 
         for row in cursor.fetchall():
             print(row)
+    connection.commit()
