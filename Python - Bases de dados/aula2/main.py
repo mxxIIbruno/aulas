@@ -12,7 +12,7 @@ import pymysql.cursors  # type: ignore
 import dotenv
 
 TABLE_NAME = "customers"
-CURRENT_CURSOR = pymysql.cursors.SSDictCursor
+CURRENT_CURSOR = pymysql.cursors.DictCursor
 
 dotenv.load_dotenv()
 
@@ -137,18 +137,53 @@ with connection:
             'WHERE id=%s'
         )
         cursor.execute(sql, ('Brasil', 78, 4))
-        cursor.execute(f'SELECT * FROM {TABLE_NAME} ')
 
-        print('For 1:')
-        for row in cursor.fetchall_unbuffered():
+        cursor.execute(
+            f'SELECT id from {TABLE_NAME} ORDER BY id DESC LIMIT 1'
+        )
+        
+        lastIdFromSelect = cursor.fetchone()
+        resultFromSelect = cursor.execute(f'SELECT * FROM {TABLE_NAME} ')
+
+        # print('For 1:')
+        # for row in cursor.fetchall():
+        #     print(row)
+
+        #     if row['id'] >= 5:
+        #         break
+
+        # print()
+        # print('For 2:')
+        # # cursor.scroll(1, 'absolute')
+        # for row in cursor.fetchall():
+        #     print(row)
+
+        data4 = cursor.fetchall()
+        for row in data4:
             print(row)
 
-            if row['id'] >= 5:
-                break
+        print('resultFromSelect', resultFromSelect)
+        print('len(data4', len(data4))
+        # Pega da ultima operação feita
+        print('rowcount', cursor.rowcount)
 
-        print()
-        print('For 2:')
-        # cursor.scroll(1, 'absolute')
-        for row in cursor.fetchall_unbuffered():
+        # sql = (
+        #     f'INSERT INTO {TABLE_NAME} (nome, idade) '
+        #     'VALUES (%s, %s)'
+        # )
+        # data3 = (
+        #     ('Siri', 23),
+        #     ('Cortana', 15),
+        #     ('Samuel', 51)
+        # )
+        # cursor.executemany(sql, data3)
+        print('lastrowid', cursor.lastrowid)
+        print('lastrowid na mão', lastIdFromSelect)
+
+        cursor.scroll(-2)
+        print('rownumber', cursor.rownumber)
+        
+        for row in cursor.fetchall():
             print(row)
+
     connection.commit()
